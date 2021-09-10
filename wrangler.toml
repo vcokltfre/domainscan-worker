@@ -1,0 +1,14 @@
+name = "domainscan-worker"
+type = "javascript"
+zone_id = "ecda1d8c617e3bbfa6e37accd3de4e78"
+account_id = "c8526a45c47706d6c69f8d997004bd7a"
+route = "https://ds.vcokltf.re/api/*"
+workers_dev = true
+kv_namespaces = [
+    { binding = "DOMAINS", id = "cbe7991328f7412185a22c01de0ca271" }
+]
+
+[build]
+command = "npm install && npm run build"
+[build.upload]
+format = "service-worker"
