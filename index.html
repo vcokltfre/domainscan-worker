@@ -28,6 +28,15 @@
     const total = response.results.length
     let scams = 0
 
+    if (!total) {
+      items.innerHTML = `<div class="item-container">
+        <div class="item noscam">
+          <h2>No Scams Found!</h2>
+        </div>
+      </div>`
+      return
+    }
+
     for (let i = 0; i < total; i++) {
       const result = response.results[i]
       const percent = Math.round(response.results[i].score * 1000) / 10
@@ -72,6 +81,11 @@
           response.json().then(data => handleResponse(data))
           break
         case 400:
+          items.innerHTML = `<div class="item-container">
+            <div class="item scam">
+              <h2>Error: Invalid Domain</h2>
+            </div>
+          </div>`
           break
       }
     })
