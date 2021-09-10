@@ -1,0 +1,76 @@
+html {
+  background: linear-gradient(327deg, #122135 0%, #373749 100%);
+  background-attachment: fixed;
+  font-family: 'Roboto', sans-serif;
+  color: #f6f6f6;
+  text-align: center;
+}
+
+body {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 4em;
+  }
+
+  textarea {
+    font-size: 2em;
+    width: 24em;
+    text-align: center;
+    height: 2em;
+    border-radius: 0.5em;
+    border-style: none;
+  }
+
+  .btn {
+    height: 2em;
+    font-size: 2em;
+    border-style: none;
+    border-radius: 0.5em;
+    margin-top: 0.5em;
+    width: 6em;
+    background-color: #47a4cf;
+    color: #fff;
+  }
+
+  .btn:hover {
+    background-color: darken(#47a4cf, 4%);
+  }
+
+  .btn:active {
+    background-color: darken(#47a4cf, 8%);
+  }
+
+  .items {
+    margin-top: 8em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .item-container {
+      padding: 0.5em;
+      width: 16em;
+
+      .item {
+        width: 100%;
+        border-radius: 1em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+      }
+
+      .noscam {
+        background-color: #c2ad37;
+      }
+
+      .scam {
+        background-color: #ca3636;
+      }
+    }
+  }
+}

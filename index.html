@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" spellcheck="false">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css">
+  <title>DomainScan</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Domain<span style="color: #f15656;">Scan</span></h1>
+    <textarea id="searchBar" placeholder="Enter a domain..."></textarea><br>
+    <button class="btn" onclick="search()">Search!</button>
+    <div id="items" class="items"></div>
+  </div>
+</body>
+<script type="text/javascript">
+  let isSearching = false;
+  const searchBar = document.getElementById("searchBar")
+  const items = document.getElementById("items");
+
+  function handleResponse(response) {
+    let html = ""
+    const total = response.results.length
+    let scams = 0
+
+    for (let i = 0; i < total; i++) {
+      const result = response.results[i]
+      const percent = Math.round(response.results[i].score * 1000) / 10
+      let scam = ""
+
+      console.log(result)
+
+      if (result.isScam) {
+        scam = "scam"
+        scams++
+      } else {
+        scam = "noscam"
+      }
+
+      html += `<div class="item-container">
+        <div class="item ${scam}">
+          <h2>${result.domain}<br>${percent}%</h2>
+        </div>
+      </div>`
+    }
+
+    items.innerHTML = html
+  }
+
+  function unlock() {
+    isSearching = false
+    console.log("Search unlocked.")
+  }
+
+  function search() {
+    if (isSearching) {
+      return
+    }
+
+    console.log("Locking search...")
+    isSearching = true
+    setTimeout(unlock, 1000)
+
+    fetch(`https://domainscan-worker.vcokltfre.workers.dev/?domain=${searchBar.value}`).then(response => {
+      switch (response.status) {
+        case 200:
+          response.json().then(data => handleResponse(data))
+          break
+        case 400:
+          break
+      }
+    })
+  }
+</script>
+</html>
